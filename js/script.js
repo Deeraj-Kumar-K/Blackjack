@@ -14,6 +14,9 @@ let blackjackGame = {
 const YOU = blackjackGame['you']
 const DEALER = blackjackGame['dealer']
 
+const clickSound = new Audio('sounds/click.m4a');
+const victorySound = new Audio('sounds/victory.mp3');
+const lossSound = new Audio('sounds/loss.mp3');
 
 document.querySelector('#blackjack-hit-button').addEventListener('click', blackjackHit);
 
@@ -42,6 +45,7 @@ function showCard(card, activePlayer) {
     let cardImage = document.createElement('img');
     cardImage.src = `images/${card}.png`;  //its backtick not single quote
     document.querySelector(activePlayer['div']).appendChild(cardImage);
+    clickSound.play();
     }
 }
 
@@ -169,10 +173,14 @@ function showResult(winner) {
             document.querySelector('#wins').textContent = blackjackGame['wins'];
             message = 'You won!';
             messageColor = 'green';
+            victorySound.play();
+
         } else if (winner === DEALER) {
             document.querySelector('#losses').textContent = blackjackGame['losses'];
             message = 'You lost!';
             messageColor = 'red';
+            lossSound.play();
+            
         } else {
             document.querySelector('#draws').textContent = blackjackGame['draws'];
             message = 'You drew!';
